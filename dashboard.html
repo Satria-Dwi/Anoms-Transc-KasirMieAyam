@@ -34,7 +34,8 @@
 
             querySnapshot.forEach((doc) => {
                 let data = doc.data();
-                totalAll += data.total;
+                console.log("DATA:", data);
+                totalAll += parseInt(data.total) || 0;
 
                 let items = "";
                 data.items.forEach(i => {
