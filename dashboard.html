@@ -19,7 +19,7 @@
             background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
 
@@ -35,7 +35,8 @@
             margin-bottom: 20px;
         }
 
-        input, button {
+        input,
+        button {
             padding: 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -62,74 +63,82 @@
 
 <body>
 
-<h2>📊 Dashboard Transaksi</h2>
+    <h2>📊 Dashboard Transaksi</h2>
 
-<div class="card">
-    <div>Total Pemasukan</div>
-    <div class="total">Rp <span id="total">0</span></div>
-</div>
+    <div class="card">
+        <div>Total Pemasukan</div>
+        <div class="total">Rp <span id="total">0</span></div>
+    </div>
 
-<div class="card filter">
-    <input type="date" id="start">
-    <input type="date" id="end">
-    <button onclick="filterTanggal()">Filter</button>
-</div>
+    <div class="card filter">
+        <input type="date" id="start">
+        <input type="date" id="end">
+        <button onclick="filterTanggal()">Filter</button>
+    </div>
 
-<div class="card" id="list"></div>
+    <div class="card" id="list"></div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyB-vWhdcOYRayZ8YHACJ-fvzpci0eWKRGQ",
-    authDomain: "anos-kasirmieayam.firebaseapp.com",
-    projectId: "anos-kasirmieayam",
-};
+        const firebaseConfig = {
+            apiKey: "AIzaSyB-vWhdcOYRayZ8YHACJ-fvzpci0eWKRGQ",
+            authDomain: "anos-kasirmieayam.firebaseapp.com",
+            projectId: "anos-kasirmieayam",
+        };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-let semuaData = [];
+        let semuaData = [];
 
-// ambil data
-async function loadData() {
-    try {
-        const querySnapshot = await getDocs(collection(db, "transaksi"));
+        // 🔥 REALTIME LISTENER
+        function loadData() {
+            try {
+                onSnapshot(collection(db, "transaksi"), (snapshot) => {
 
-        semuaData = [];
+                    let dataBaru = [];
 
-        querySnapshot.forEach((doc) => {
-            let data = doc.data();
-            semuaData.push(data);
-        });
+                    snapshot.forEach((doc) => {
+                        let data = doc.data();
+                        dataBaru.push(data);
+                    });
 
-        renderData(semuaData);
+                    // 🔔 DETEKSI DATA BARU
+                    if (dataBaru.length > semuaData.length) {
+                        console.log("🔥 Transaksi baru masuk!");
+                    }
 
-    } catch (error) {
-        console.error("🔥 ERROR:", error);
-        document.getElementById("list").innerHTML = "❌ Error ambil data";
-    }
-}
+                    semuaData = dataBaru;
 
-// render data
-function renderData(dataList) {
-    let html = "";
-    let totalAll = 0;
+                    renderData(semuaData);
+                });
 
-    dataList.forEach(data => {
-        let total = parseInt(data.total) || 0;
-        totalAll += total;
-
-        let items = "";
-
-        if (data.items) {
-            data.items.forEach(i => {
-                items += `<li>${i.nama} x${i.qty}</li>`;
-            });
+            } catch (error) {
+                console.error("🔥 ERROR:", error);
+                document.getElementById("list").innerHTML = "❌ Error ambil data";
+            }
         }
 
-        html += `
+        // render data
+        function renderData(dataList) {
+            let html = "";
+            let totalAll = 0;
+
+            dataList.forEach(data => {
+                let total = parseInt(data.total) || 0;
+                totalAll += total;
+
+                let items = "";
+
+                if (data.items) {
+                    data.items.forEach(i => {
+                        items += `<li>${i.nama} x${i.qty}</li>`;
+                    });
+                }
+
+                html += `
         <div class="item">
             <b>Rp ${total.toLocaleString("id-ID")}</b><br>
             <span class="tanggal">
@@ -138,36 +147,37 @@ function renderData(dataList) {
             <ul>${items}</ul>
         </div>
         `;
-    });
+            });
 
-    document.getElementById("list").innerHTML = html || "Tidak ada data";
-    document.getElementById("total").innerText = totalAll.toLocaleString("id-ID");
-}
+            document.getElementById("list").innerHTML = html || "Tidak ada data";
+            document.getElementById("total").innerText = totalAll.toLocaleString("id-ID");
+        }
 
-// filter tanggal
-window.filterTanggal = function() {
-    let start = document.getElementById("start").value;
-    let end = document.getElementById("end").value;
+        // filter tanggal
+        window.filterTanggal = function () {
+            let start = document.getElementById("start").value;
+            let end = document.getElementById("end").value;
 
-    if (!start || !end) {
-        alert("Isi tanggal dulu!");
-        return;
-    }
+            if (!start || !end) {
+                alert("Isi tanggal dulu!");
+                return;
+            }
 
-    let startDate = new Date(start);
-    let endDate = new Date(end);
-    endDate.setHours(23,59,59);
+            let startDate = new Date(start);
+            let endDate = new Date(end);
+            endDate.setHours(23, 59, 59);
 
-    let filtered = semuaData.filter(d => {
-        let tgl = new Date(d.tanggal);
-        return tgl >= startDate && tgl <= endDate;
-    });
+            let filtered = semuaData.filter(d => {
+                let tgl = new Date(d.tanggal);
+                return tgl >= startDate && tgl <= endDate;
+            });
 
-    renderData(filtered);
-};
+            renderData(filtered);
+        };
 
-loadData();
-</script>
+        loadData();
+    </script>
 
 </body>
+
 </html>
