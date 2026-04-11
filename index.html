@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kasir PRO</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <h2>🍜</h2>
+            <button onclick="filter('all')">All</button>
+            <button onclick="filter('mie')">Mie</button>
+            <button onclick="filter('minum')">Minum</button>
+        </div>
+
+        <!-- MENU -->
+        <div class="menu">
+            <div class="topbar">
+                <input type="text" id="search" placeholder="Cari menu..." onkeyup="searchMenu()">
+            </div>
+            <div class="grid" id="menu-list"></div>
+        </div>
+
+        <!-- CART -->
+        <div class="cart">
+            <h2>🧾 Order</h2>
+            <div id="cart-list"></div>
+
+            <div class="summary">
+                <p>Subtotal: Rp <span id="subtotal">0</span></p>
+                <p>Pajak (10%): Rp <span id="tax">0</span></p>
+                <p>Total: Rp <span id="total">0</span></p>
+
+                <!-- <input type="number" id="bayar" placeholder="Uang Bayar"> -->
+                <input type="number" id="bayar" placeholder="Masukkan uang bayar">
+                <p>Kembalian: Rp <span id="kembali">0</span></p>
+
+                <button onclick="prosesBayar()">💳 Bayar Sekarang</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- STRUK -->
+    <div id="struk" class="struk">
+        <h3>WARUNG MIE AYAM</h3>
+        <p>Jl. Contoh No.1</p>
+        <p>No: <span id="s-no"></span></p>
+        <p>Tanggal: <span id="s-tanggal"></span></p>
+        <hr>
+
+        <div id="s-list"></div>
+
+        <hr>
+        <p>Total : Rp <span id="s-total"></span></p>
+        <p>Bayar : Rp <span id="s-bayar"></span></p>
+        <p>Kembali : Rp <span id="s-kembali"></span></p>
+
+        <hr>
+        <p style="text-align:center">Terima Kasih 🙏</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
