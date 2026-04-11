@@ -144,6 +144,14 @@ function prosesBayar() {
     document.getElementById("s-tanggal").innerText = tanggal;
     document.getElementById("s-no").innerText = no;
 
+    simpanTransaksi({
+        items: cart,
+        total: total,
+        bayar: bayar,
+        kembali: kembali,
+        tanggal: new Date().toISOString()
+    });
+
     setTimeout(() => {
         window.print();
     }, 100);
