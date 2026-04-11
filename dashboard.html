@@ -4,41 +4,11 @@
 <head>
     <title>Dashboard Transaksi</title>
     <style>
-        /* layout utama */
         body {
-            display: flex;
-        }
-
-        /* sidebar kiri */
-        .sidebar {
-            width: 200px;
-            height: 100vh;
-            background: #2c3e50;
-            color: white;
+            font-family: Arial;
+            background: #f5f6fa;
+            margin: 0;
             padding: 20px;
-            position: fixed;
-            left: 0;
-            top: 0;
-        }
-
-        /* tombol sidebar */
-        .sidebar button {
-            width: 100%;
-            margin-bottom: 10px;
-            background: #34495e;
-            border: none;
-            color: white;
-            cursor: pointer;
-        }
-
-        .sidebar button:hover {
-            background: #1abc9c;
-        }
-
-        /* konten geser ke kanan */
-        body>h2,
-        body>.card {
-            margin-left: 220px;
         }
 
         h2 {
@@ -93,31 +63,27 @@
 
 <body>
 
+    <h2>📊 Dashboard Transaksi</h2>
+
     <div class="sidebar">
-        <h2>🍜 Kasir</h2>
+        <h2>🍜</h2>
         <button onclick="filter('all')">All</button>
         <button onclick="filter('mie')">Mie</button>
         <button onclick="filter('minum')">Minum</button>
-        <button onclick="bukaDashboard()">📊 Dashboard</button>
+        <button onclick="bukaDashboard()">📊</button>
+    </div>
+    <div class="card">
+        <div>Total Pemasukan</div>
+        <div class="total">Rp <span id="total">0</span></div>
     </div>
 
-    <div class="content">
-        <h2>📊 Dashboard Transaksi</h2>
-        <h2>📊 Dashboard Transaksi</h2>
-
-        <div class="card">
-            <div>Total Pemasukan</div>
-            <div class="total">Rp <span id="total">0</span></div>
-        </div>
-
-        <div class="card filter">
-            <input type="date" id="start">
-            <input type="date" id="end">
-            <button onclick="filterTanggal()">Filter</button>
-        </div>
-
-        <div class="card" id="list"></div>
+    <div class="card filter">
+        <input type="date" id="start">
+        <input type="date" id="end">
+        <button onclick="filterTanggal()">Filter</button>
     </div>
+
+    <div class="card" id="list"></div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -211,19 +177,6 @@
             let filtered = semuaData.filter(d => {
                 let tgl = new Date(d.tanggal);
                 return tgl >= startDate && tgl <= endDate;
-            });
-
-            renderData(filtered);
-        };
-
-        window.filter = function (kategori) {
-            if (kategori === "all") {
-                renderData(semuaData);
-                return;
-            }
-
-            let filtered = semuaData.filter(d => {
-                return d.items && d.items.some(i => i.kategori === kategori);
             });
 
             renderData(filtered);
