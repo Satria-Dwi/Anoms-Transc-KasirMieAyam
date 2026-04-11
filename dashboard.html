@@ -59,6 +59,27 @@
             document.getElementById("total").innerText = totalAll.toLocaleString("id-ID");
         }
 
+        async function loadData() {
+            try {
+                const querySnapshot = await getDocs(collection(db, "transaksi"));
+
+                console.log("JUMLAH DATA:", querySnapshot.size);
+
+                let html = "";
+                let totalAll = 0;
+
+                querySnapshot.forEach((doc) => {
+                    let data = doc.data();
+                    console.log("DATA:", data);
+
+                    totalAll += parseInt(data.total) || 0;
+                });
+
+            } catch (error) {
+                console.error("🔥 ERROR FIREBASE:", error);
+            }
+        }
+
         loadData();
     </script>
 </body>
