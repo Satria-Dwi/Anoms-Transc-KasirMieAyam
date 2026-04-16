@@ -178,16 +178,28 @@ function searchMenu() {
     renderMenu(menu.filter(m => m.nama.toLowerCase().includes(key)));
 }
 
+// window.bukaHome = function () {
+//     location.href = "/";
+// };
+
+// window.bukaHistory = function () {
+//     location.href = "/rekapan/";
+// };
+
+// window.bukaKasir = function () {
+//     location.href = "/kasir/";
+// };
+
 window.bukaHome = function () {
     location.href = "/";
 };
 
 window.bukaHistory = function () {
-    location.href = "/rekapan/";
+    location.href = "/Anosm-KasirMieAyam/rekapan/";
 };
 
 window.bukaKasir = function () {
-    location.href = "/kasir/";
+    location.href = "/Anosm-KasirMieAyam/kasir/";
 };
 
 
