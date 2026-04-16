@@ -191,7 +191,7 @@ function searchMenu() {
 // };
 
 window.bukaHome = function () {
-    location.href = "/";
+    location.href = "/Anosm-KasirMieAyam/";
 };
 
 window.bukaHistory = function () {
