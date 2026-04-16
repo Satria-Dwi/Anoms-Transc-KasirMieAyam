@@ -3,105 +3,54 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Kasir PRO</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
-
     <div class="container">
-
-        <!-- SIDEBAR -->
         <div class="sidebar">
-            <h2>🍜</h2>
-            <button onclick="filter('all')">All</button>
-            <button onclick="filter('mie')">Mie</button>
-            <button onclick="filter('minum')">Minum</button>
-            <button onclick="bukaDashboard()">📊</button>
+            <h2>🍜 ANOMS</h2>
+            <button class="active">🏠 Home</button>
+            <button onclick="bukaRekapan()">📊 History Transaction</button>
+            <button onclick="bukaKasir()">🍽️ Kasir</button>
         </div>
 
-        <!-- MENU -->
-        <div class="menu">
+        <div class="main">
             <div class="topbar">
-                <input type="text" id="search" placeholder="Cari menu..." onkeyup="searchMenu()">
+                <h2>🏠 Dashboard Transaksi</h2>
             </div>
-            <div class="grid" id="menu-list"></div>
-        </div>
 
-        <!-- CART -->
-        <div class="cart">
-            <h2>🧾 Order</h2>
-            <div id="cart-list"></div>
+            <div class="cards">
+                <div class="card blue">
+                    <h4>PENDAPATAN HARI INI</h4>
+                    <h2>Rp <span id="pendapatanHariIni">0</span></h2>
+                </div>
 
-            <div class="summary">
-                <p>Subtotal: Rp <span id="subtotal">0</span></p>
-                <p>Pajak (10%): Rp <span id="tax">0</span></p>
-                <p>Total: Rp <span id="total">0</span></p>
+                <div class="card green">
+                    <h4>TRANSAKSI HARI INI</h4>
+                    <h2><span id="transaksiHariIni">0</span></h2>
+                </div>
 
-                <!-- <input type="number" id="bayar" placeholder="Uang Bayar"> -->
-                <input type="number" id="bayar" placeholder="Masukkan uang bayar">
-                <p>Kembalian: Rp <span id="kembali">0</span></p>
+                <div class="card red">
+                    <h4>PRODUK STOK RENDAH</h4>
+                    <h2>0</h2>
+                </div>
 
-                <button onclick="prosesBayar()">💳 Bayar Sekarang</button>
+                <div class="card orange">
+                    <h4>BIAYA BULAN INI</h4>
+                    <h2>Rp 0</h2>
+                </div>
+            </div>
+
+            <div class="welcome">
+                👋 Selamat datang kembali, Kasir Toko! Anda login sebagai Kasir.
             </div>
         </div>
-
     </div>
-
-    <!-- STRUK -->
-    <div id="struk" class="struk">
-        <h3>WARUNG MIE AYAM</h3>
-        <p>Jl. Contoh No.1</p>
-        <p>No: <span id="s-no"></span></p>
-        <p>Tanggal: <span id="s-tanggal"></span></p>
-        <hr>
-
-        <div id="s-list"></div>
-
-        <hr>
-        <p>Total : Rp <span id="s-total"></span></p>
-        <p>Bayar : Rp <span id="s-bayar"></span></p>
-        <p>Kembali : Rp <span id="s-kembali"></span></p>
-
-        <hr>
-        <p style="text-align:center">Terima Kasih 🙏</p>
-    </div>
-
-    <script src="script.js"></script>
+    <script src="../script.js"></script>
 </body>
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyB-vWhdcOYRayZ8YHACJ-fvzpci0eWKRGQ",
-        authDomain: "anos-kasirmieayam.firebaseapp.com",
-        projectId: "anos-kasirmieayam",
-        storageBucket: "anos-kasirmieayam.firebasestorage.app",
-        messagingSenderId: "561871364968",
-        appId: "1:561871364968:web:170152a933d38787796cdd",
-        measurementId: "G-SLNRZFD32Y"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // 🔥 fungsi global
-    window.simpanTransaksi = async function (data) {
-        console.log("🔥 kirim:", data);
-
-        try {
-            await addDoc(collection(db, "transaksi"), data);
-            console.log("✅ MASUK FIREBASE");
-        } catch (e) {
-            console.error("❌ ERROR:", e);
-        }
-    };
-
-    // 🔥 WAJIB GLOBAL
-    window.db = db;
-    window.addDoc = addDoc;
-    window.collection = collection;
-</script>
 
 </html>

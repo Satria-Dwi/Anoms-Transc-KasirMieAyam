@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>History Transactioni</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <h2>🍜</h2>
+
+            <button onclick="bukaHome()">🏠 Home</button>
+            <button class="active">📊 History Transaction</button>
+            <button onclick="bukaKasir()">🍽️ Kasir</button>
+        </div>
+
+        <!-- MAIN -->
+        <div class="main">
+
+            <div class="topbar">
+                <h2>📊 History Transaction</h2>
+            </div>
+
+            <!-- FILTER BAR -->
+            <div class="card filter-bar">
+                <input type="date" id="start">
+                <input type="date" id="end">
+
+                <button onclick="filterTanggal()">FILTER</button>
+                <button onclick="resetFilter()">RESET</button>
+                <button onclick="exportCSV()">Ekspor CSV</button>
+            </div>
+
+            <!-- SUMMARY CARDS -->
+            <div class="cards">
+                <div class="card blue">
+                    <h4>Total Pendapatan</h4>
+                    <h2>Rp <span id="total">0</span></h2>
+                </div>
+
+                <div class="card green">
+                    <h4>Total Transaksi</h4>
+                    <h2 id="jumlahTransaksi">0</h2>
+                </div>
+            </div>
+
+            <!-- TABLE -->
+            <div class="card">
+                <h3>Riwayat Transaksi</h3>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Waktu</th>
+                            <th>Kasir</th>
+                            <th>Item</th>
+                            <th>Total</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="list"></tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+    <script src="../script.js"></script>
+    <script type="module" src="../historytrans.js"></script>
+</body>
+
+</html>

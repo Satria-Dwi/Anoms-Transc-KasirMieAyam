@@ -40,17 +40,22 @@ function rupiah(angka) {
 
 // render menu
 function renderMenu(data = menu) {
+    const container = document.getElementById("menu-list");
+    if (!container) return;
+
     let html = "";
-    data.forEach((m, i) => {
+
+    data.forEach((m) => {
         html += `
-        <div class="card" onclick="tambah(${i})">
+        <div class="card" onclick='tambahByName("${m.nama}")'>
             <img src="${m.img}" onerror="this.src='https://via.placeholder.com/150'">
             <h4>${m.nama}</h4>
             <p>Rp ${rupiah(m.harga)}</p>
         </div>
         `;
     });
-    document.getElementById("menu-list").innerHTML = html;
+
+    container.innerHTML = html;
 }
 
 // tambah ke cart
@@ -68,6 +73,9 @@ function tambah(i) {
 
 // render cart
 function renderCart() {
+    const cartList = document.getElementById("cart-list");
+    if (!cartList) return;
+
     let html = "";
     let subtotal = 0;
 
@@ -88,17 +96,22 @@ function renderCart() {
         `;
     });
 
-    // let tax = subtotal * 0.1;
     let tax = 0;
     let total = subtotal + tax;
 
-    document.getElementById("cart-list").innerHTML = html;
-    document.getElementById("subtotal").innerText = rupiah(subtotal);
-    document.getElementById("tax").innerText = rupiah(tax);
-    document.getElementById("total").innerText = rupiah(total);
+    const subtotalEl = document.getElementById("subtotal");
+    const taxEl = document.getElementById("tax");
+    const totalEl = document.getElementById("total");
+    const bayarEl = document.getElementById("bayar");
+    const kembaliEl = document.getElementById("kembali");
 
-    let bayar = parseInt(document.getElementById("bayar").value) || 0;
-    document.getElementById("kembali").innerText = rupiah(bayar - total);
+    if (cartList) cartList.innerHTML = html;
+    if (subtotalEl) subtotalEl.innerText = rupiah(subtotal);
+    if (taxEl) taxEl.innerText = rupiah(tax);
+    if (totalEl) totalEl.innerText = rupiah(total);
+
+    let bayar = parseInt(bayarEl?.value) || 0;
+    if (kembaliEl) kembaliEl.innerText = rupiah(bayar - total);
 }
 
 // tambah qty
@@ -116,61 +129,41 @@ function kurang(i) {
 
 // proses bayar + struk
 function prosesBayar() {
-    let total = parseInt(document.getElementById("total").innerText.replace(/\./g, ""));
-    let bayar = parseInt(document.getElementById("bayar").value);
+    const totalText = document.getElementById("total")?.innerText || "0";
+    let total = parseInt(totalText.replace(/\./g, ""));
+
+    let bayar = parseInt(document.getElementById("bayar")?.value || 0);
 
     if (bayar < total) return alert("Uang kurang!");
 
     let kembali = bayar - total;
 
     let now = new Date();
-    let tanggal = now.toLocaleString("id-ID");
+    let tanggal = now.toISOString();
     let no = Math.floor(Math.random() * 100000);
-
-    let list = "";
-    cart.forEach(item => {
-        list += `
-        <div class="item-struk">
-            <span>${item.nama} x${item.qty}</span>
-            <span>${rupiah(item.harga * item.qty)}</span>
-        </div>
-        `;
-    });
-
-    document.getElementById("s-list").innerHTML = list;
-    document.getElementById("s-total").innerText = rupiah(total);
-    document.getElementById("s-bayar").innerText = rupiah(bayar);
-    document.getElementById("s-kembali").innerText = rupiah(kembali);
-    document.getElementById("s-tanggal").innerText = tanggal;
-    document.getElementById("s-no").innerText = no;
 
     addDoc(collection(db, "transaksi"), {
         items: cart,
-        total: total,
-        bayar: bayar,
-        kembali: kembali,
-        tanggal: new Date().toISOString()
-    })
-        .then(() => {
-            console.log("✅ Masuk Firebase");
-        })
-        .catch((err) => {
-            console.error("❌ Gagal:", err);
-        });
+        total,
+        bayar,
+        kembali,
+        kasir: "Satria", // atau ambil dari login nanti
+        waktu: new Date()
+    });
 
-    setTimeout(() => {
-        window.print();
-    }, 100);
+    window.print();
 
-    // reset
     cart = [];
     renderCart();
 
-    let input = document.getElementById("bayar");
-    input.value = "";
-    input.focus();
+    const bayarInput = document.getElementById("bayar");
+    if (bayarInput) {
+        bayarInput.value = "";
+        bayarInput.focus();
+    }
 
-    document.getElementById("kembali").innerText = "0";
+    const kembaliEl = document.getElementById("kembali");
+    if (kembaliEl) kembaliEl.innerText = "0";
 }
 
 // filter
@@ -185,8 +178,17 @@ function searchMenu() {
     renderMenu(menu.filter(m => m.nama.toLowerCase().includes(key)));
 }
 
-function bukaDashboard() {
-    window.open("dashboard.html", "_blank");
-}
+window.bukaHome = function () {
+    location.href = "/";
+};
+
+window.bukaHistory = function () {
+    location.href = "/rekapan/";
+};
+
+window.bukaKasir = function () {
+    location.href = "/kasir/";
+};
+
 
 renderMenu();
