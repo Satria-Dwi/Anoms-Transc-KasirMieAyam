@@ -146,10 +146,5 @@ function formatRupiah(angka) {
     return angka.toLocaleString("id-ID");
 }
 
-// ================= HOME =================
-window.bukaHome = function () {
-    location.href = "/";
-};
-
 // ================= START =================
 loadData();

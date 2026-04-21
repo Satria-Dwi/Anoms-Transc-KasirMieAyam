@@ -12,10 +12,11 @@
 <body>
     <div class="container">
         <div class="sidebar">
-            <h2>🍜 ANOMS</h2>
+            <!-- <h2>🍝 ANOMS</h2> -->
+            <img src="img/logo.png" alt="logo">
             <button class="active">🏠 Home</button>
-            <button onclick="bukaHistory()">📊 History Transaction</button>
             <button onclick="bukaKasir()">🍽️ Kasir</button>
+            <button onclick="bukaHistory()">📊 History Transaction</button>
         </div>
 
         <div class="main">
@@ -34,23 +35,26 @@
                     <h2><span id="transaksiHariIni">0</span></h2>
                 </div>
 
-                <div class="card red">
+                <!-- <div class="card red">
                     <h4>PRODUK STOK RENDAH</h4>
-                    <h2>0</h2>
+                    <h2><span id="stokRendah">0</span></h2>
                 </div>
 
                 <div class="card orange">
                     <h4>BIAYA BULAN INI</h4>
-                    <h2>Rp 0</h2>
-                </div>
+                    <h2>Rp <span id="biayaBulan">0</span></h2>
+                </div> -->
             </div>
 
             <div class="welcome">
                 👋 Selamat datang kembali, Kasir Toko! Anda login sebagai Kasir.
             </div>
+            <canvas id="salesChart" height="100"></canvas>
         </div>
     </div>
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="dashboard.js"></script>
 </body>
 
 </html>
