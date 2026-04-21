@@ -193,29 +193,29 @@ function searchMenu() {
     renderMenu(menu.filter(m => m.nama.toLowerCase().includes(key)));
 }
 
-window.bukaHome = function () {
-    location.href = "/Anoms-transac/";
-};
-
-window.bukaHistory = function () {
-    location.href = "/Anoms-transac/rekapan/";
-};
-
-window.bukaKasir = function () {
-    location.href = "/Anoms-transac/kasir/";
-};
-
 // window.bukaHome = function () {
-//     location.href = "/Anosm-KasirMieAyam/";
+//     location.href = "/Anoms-transac/";
 // };
 
 // window.bukaHistory = function () {
-//     location.href = "/Anosm-KasirMieAyam/rekapan/";
+//     location.href = "/Anoms-transac/rekapan/";
 // };
 
 // window.bukaKasir = function () {
-//     location.href = "/Anosm-KasirMieAyam/kasir/";
+//     location.href = "/Anoms-transac/kasir/";
 // };
+
+window.bukaHome = function () {
+    location.href = "/Anoms-Transc-KasirMieAyam/";
+};
+
+window.bukaHistory = function () {
+    location.href = "/Anoms-Transc-KasirMieAyam/rekapan/";
+};
+
+window.bukaKasir = function () {
+    location.href = "/Anoms-Transc-KasirMieAyam/kasir/";
+};
 
 
 renderMenu();
