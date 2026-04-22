@@ -2,37 +2,13 @@ import { checkAuth } from "./auth.js";
 import { simpanTransaksi } from "./simpantransaksi.js";
 
 checkAuth();
+
 let menu = [
-    {
-        nama: "Mie Ayam",
-        harga: 10000,
-        kategori: "mie",
-        img: "https://images.unsplash.com/photo-1593755768185-f7257e9067ec?w=400"
-    },
-    {
-        nama: "Mie Ayam Bakso",
-        harga: 12000,
-        kategori: "mie",
-        img: "https://images.unsplash.com/photo-1747317277795-0d601795682c?w=400"
-    },
-    {
-        nama: "Mie Ayam Ceker",
-        harga: 13000,
-        kategori: "mie",
-        img: "https://images.unsplash.com/photo-1680675706515-fb3eb73116d4?w=400"
-    },
-    {
-        nama: "Es Teh",
-        harga: 5000,
-        kategori: "minum",
-        img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400"
-    },
-    {
-        nama: "Es Jeruk",
-        harga: 6000,
-        kategori: "minum",
-        img: "https://images.unsplash.com/photo-1522427088495-81d38b91befb?w=400"
-    }
+    { nama: "Mie Ayam", harga: 10000, kategori: "mie", img: "https://images.unsplash.com/photo-1593755768185-f7257e9067ec?w=400" },
+    { nama: "Mie Ayam Bakso", harga: 12000, kategori: "mie", img: "https://images.unsplash.com/photo-1747317277795-0d601795682c?w=400" },
+    { nama: "Mie Ayam Ceker", harga: 13000, kategori: "mie", img: "https://images.unsplash.com/photo-1680675706515-fb3eb73116d4?w=400" },
+    { nama: "Es Teh", harga: 5000, kategori: "minum", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400" },
+    { nama: "Es Jeruk", harga: 6000, kategori: "minum", img: "https://images.unsplash.com/photo-1522427088495-81d38b91befb?w=400" }
 ];
 
 let cart = [];
@@ -42,41 +18,45 @@ function formatRupiah(angka) {
     return angka.toLocaleString("id-ID");
 }
 
-// 🔥 PRINT STRUK (FIX)
+// 🔥 PRINT STRUK
 function printStruk(data) {
 
-    document.getElementById("s-no").innerText =
-        "TRX-" + new Date().getTime();
+    const struk = document.getElementById("struk");
+    if (!struk) return;
 
-    document.getElementById("s-tanggal").innerText =
-        new Date().toLocaleString("id-ID");
+    document.getElementById("s-no").innerText = "TRX-" + Date.now();
+    document.getElementById("s-tanggal").innerText = new Date().toLocaleString("id-ID");
 
     const list = document.getElementById("s-list");
-    list.innerHTML = "";
 
+    let html = "";
     data.items.forEach(item => {
-        list.innerHTML += `
+        html += `
         <div class="struk-item">
             <div>${item.nama}</div>
             <div class="struk-row">
                 <span>${item.qty} x ${formatRupiah(item.harga)}</span>
                 <span>${formatRupiah(item.qty * item.harga)}</span>
             </div>
-        </div>
-        `;
+        </div>`;
     });
+
+    list.innerHTML = html;
 
     document.getElementById("s-total").innerText = formatRupiah(data.total);
     document.getElementById("s-bayar").innerText = formatRupiah(data.bayar);
     document.getElementById("s-kembali").innerText = formatRupiah(data.kembali);
 
-    const struk = document.getElementById("struk");
     struk.style.display = "block";
 
     setTimeout(() => {
         window.print();
-        struk.style.display = "none";
-    }, 300);
+
+        setTimeout(() => {
+            struk.style.display = "none";
+        }, 500);
+
+    }, 200);
 }
 
 // 🔥 RENDER MENU
@@ -85,15 +65,13 @@ function renderMenu(data = menu) {
     if (!container) return;
 
     let html = "";
-
     data.forEach((m, i) => {
         html += `
         <div class="card" onclick='tambah(${i})'>
             <img src="${m.img}" onerror="this.src='https://via.placeholder.com/150'">
             <h4>${m.nama}</h4>
             <p>Rp ${formatRupiah(m.harga)}</p>
-        </div>
-        `;
+        </div>`;
     });
 
     container.innerHTML = html;
@@ -131,14 +109,14 @@ function renderCart() {
                 <span class="qty-btn" onclick="tambahQty(${i})">+</span>
             </div>
             Rp ${formatRupiah(total)}
-        </div>
-        `;
+        </div>`;
     });
 
     let tax = 0;
     let total = subtotal + tax;
 
-    document.getElementById("cart-list").innerHTML = html;
+    cartList.innerHTML = html;
+
     document.getElementById("subtotal").innerText = formatRupiah(subtotal);
     document.getElementById("tax").innerText = formatRupiah(tax);
     document.getElementById("total").innerText = formatRupiah(total);
@@ -161,7 +139,7 @@ function kurang(i) {
     renderCart();
 }
 
-// 🔥 BAYAR (FIX TOTAL)
+// 🔥 BAYAR
 async function prosesBayar() {
     if (cart.length === 0) return alert("Keranjang kosong!");
 
@@ -180,7 +158,7 @@ async function prosesBayar() {
     const kembali = bayar - total;
 
     const data = {
-        items: [...cart], // 🔥 biar aman (tidak ke-reset sebelum print)
+        items: [...cart],
         total,
         bayar,
         kembali,
@@ -189,13 +167,9 @@ async function prosesBayar() {
     };
 
     try {
-        // ✅ tunggu firebase selesai
         await simpanTransaksi(data);
-
-        // ✅ print pakai data yang sudah fix
         printStruk(data);
 
-        // ✅ reset setelah semua selesai
         cart = [];
         renderCart();
 
@@ -207,19 +181,21 @@ async function prosesBayar() {
         alert("Gagal simpan transaksi!");
     }
 }
+
 // 🔥 SEARCH
 function searchMenu() {
     let key = document.getElementById("search").value.toLowerCase();
     renderMenu(menu.filter(m => m.nama.toLowerCase().includes(key)));
 }
 
+// 🔥 LOGOUT
 function logout() {
     localStorage.removeItem("isLogin");
-    localStorage.removeItem("user"); // kalau kamu pakai user juga
-    // window.location.href = "/";
+    localStorage.removeItem("user");
     window.location.href = "/Anoms-Transc-KasirMieAyam/";
 }
 
+// 🔥 GLOBAL
 window.tambah = tambah;
 window.tambahQty = tambahQty;
 window.kurang = kurang;
@@ -230,28 +206,30 @@ window.searchMenu = searchMenu;
 window.logout = logout;
 
 // 🔥 NAV
-window.bukaHome = () => location.href = "/Anoms-Transc-KasirMieAyam/views/dashboard/";
-window.bukaHistory = () => location.href = "/Anoms-Transc-KasirMieAyam/views/rekapan/";
-window.bukaKasir = () => location.href = "/Anoms-Transc-KasirMieAyam/views/kasir/";
+// window.bukaHome = () => location.href = "/Anoms-Transc-KasirMieAyam/views/dashboard/";
+// window.bukaHistory = () => location.href = "/Anoms-Transc-KasirMieAyam/views/rekapan/";
+// window.bukaKasir = () => location.href = "/Anoms-Transc-KasirMieAyam/views/kasir/";
 
-// window.bukaHome = () => location.href = "/views/dashboard/";
-// window.bukaHistory = () => location.href = "/views/rekapan/";
-// window.bukaKasir = () => location.href = "/views/kasir/";
+window.bukaHome = () => location.href = "/views/dashboard/";
+window.bukaHistory = () => location.href = "/views/rekapan/";
+window.bukaKasir = () => location.href = "/views/kasir/";
 
-// 🔥 INIT
-window.onload = () => {
+// 🔥 INIT (AMAN)
+document.addEventListener("DOMContentLoaded", () => {
+
     renderMenu();
 
     const bayarInput = document.getElementById("bayar");
-
     if (bayarInput) {
         bayarInput.addEventListener("input", renderCart);
     }
-};
 
-const menuBtn = document.getElementById("menuBtn");
-const sidebar = document.querySelector(".sidebar");
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.querySelector(".sidebar");
 
-menuBtn.addEventListener("click", () => {
-    sidebar.classList.toggle("active");
+    if (menuBtn && sidebar) {
+        menuBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("active");
+        });
+    }
 });

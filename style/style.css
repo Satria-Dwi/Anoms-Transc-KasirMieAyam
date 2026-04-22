@@ -81,6 +81,7 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
+    position: relative;
 }
 
 .topbar h2 input {
@@ -299,18 +300,51 @@ button {
 }
 
 .struk-item {
-    font-size: 12px;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 4px;
 }
 
 .struk-row {
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
+    font-size: 11px;
 }
+
+/* default: tampil di layar */
+#struk {
+    width: 280px;
+    font-size: 12px;
+    background: white;
+    padding: 10px;
+    margin: auto;
+}
+
+/* sembunyikan hanya di screen */
+@media screen {
+    #struk {
+        display: none;
+    }
+}
+
 
 /* PRINT MODE */
 @media print {
+
+    @page {
+        size: 58mm auto;
+        /* ganti ke 80mm kalau printer kamu 80mm */
+        margin: 0;
+    }
+    
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        width: 58mm;
+    }
+
     body * {
         visibility: hidden;
     }
@@ -325,6 +359,11 @@ button {
         left: 0;
         top: 0;
         width: 58mm;
+        /* PENTING: jangan pakai px */
+        margin: 0;
+        padding: 2mm;
+        /* kecil aja biar ga kepotong */
+        box-sizing: border-box;
         font-size: 12px;
     }
 }
@@ -492,11 +531,6 @@ button {
 /* placeholder lebih soft */
 #search::placeholder {
     color: #999;
-}
-
-/* optional: icon search (kalau mau upgrade lagi) */
-.topbar {
-    position: relative;
 }
 
 .topbar::before {
