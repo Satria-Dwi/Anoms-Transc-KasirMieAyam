@@ -3,13 +3,15 @@ export function checkAuth(allowedRoles = []) {
 
     // ❌ belum login
     if (!currentUser) {
-        window.location.href = "/";
+        // window.location.href = "/";
+        window.location.href = "/anoms-transc-kasirayam/";
         return;
     }
 
     // ❌ tidak punya role
     if (!currentUser.role) {
-        window.location.href = "/";
+        // window.location.href = "/";
+        window.location.href = "/Anoms-Transc-KasirMieAyam/";
         return;
     }
 
