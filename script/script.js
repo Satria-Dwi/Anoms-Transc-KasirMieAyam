@@ -192,8 +192,8 @@ function searchMenu() {
 function logout() {
     localStorage.removeItem("isLogin");
     localStorage.removeItem("user");
-    // window.location.href = "/Anoms-Transc-KasirMieAyam/";
-    window.location.href = "/";
+    // window.location.href = "/";
+    window.location.href = "/Anoms-Transc-KasirMieAyam/";
 }
 
 // 🔥 GLOBAL
