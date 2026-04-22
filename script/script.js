@@ -217,6 +217,7 @@ function logout() {
     localStorage.removeItem("isLogin");
     localStorage.removeItem("user"); // kalau kamu pakai user juga
     window.location.href = "/";
+    window.location.href = "/Anoms-Transc-KasirMieAyam/";
 }
 
 window.tambah = tambah;
