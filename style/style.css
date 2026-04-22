@@ -496,3 +496,128 @@ button {
     opacity: 0.6;
     pointer-events: none;
 }
+
+
+/* =========================
+   📱 GLOBAL RESPONSIVE FIX
+========================= */
+@media (max-width: 1024px) {
+    .main {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .cart {
+        width: 280px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =========================
+   📱 TABLET (768px)
+========================= */
+@media (max-width: 768px) {
+
+    /* sidebar jadi hidden */
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        transition: 0.3s ease;
+        z-index: 9999;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    /* main full */
+    .main {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    /* cart jadi bawah (tidak nabrak) */
+    .cart {
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        right: 0;
+        left: 0;
+        width: 100%;
+        height: 45vh;
+        border-left: none;
+        border-top: 1px solid #eee;
+    }
+
+    .main-content {
+        margin-right: 0;
+        padding-bottom: 50vh;
+    }
+
+    /* grid jadi 1-2 kolom */
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =========================
+   📱 MOBILE (480px)
+========================= */
+@media (max-width: 480px) {
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #search {
+        max-width: 100%;
+    }
+
+    .cart {
+        height: 50vh;
+        padding: 15px;
+    }
+
+    .item {
+        font-size: 13px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+/* =========================
+   📱 SMALL MOBILE (360px)
+========================= */
+@media (max-width: 360px) {
+
+    .sidebar h2 {
+        font-size: 18px;
+    }
+
+    .card h2 {
+        font-size: 18px;
+    }
+
+    .cart h2 {
+        font-size: 16px;
+    }
+}
