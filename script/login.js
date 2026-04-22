@@ -25,8 +25,8 @@ async function login() {
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("isLogin", "true");
 
-        window.location.href = "/views/dashboard/";
-        // window.location.href = "/Anoms-Transc-KasirMieAyam/views/dashboard/";
+        // window.location.href = "/views/dashboard/";
+        window.location.href = "/Anoms-Transc-KasirMieAyam/views/dashboard/";
     } else {
         document.getElementById("error").innerText =
             "Username atau password salah";

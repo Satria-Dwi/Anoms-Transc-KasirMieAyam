@@ -207,13 +207,13 @@ window.searchMenu = searchMenu;
 window.logout = logout;
 
 // 🔥 NAV
-// window.bukaHome = () => location.href = "/Anoms-Transc-KasirMieAyam/views/dashboard/";
-// window.bukaHistory = () => location.href = "/Anoms-Transc-KasirMieAyam/views/rekapan/";
-// window.bukaKasir = () => location.href = "/Anoms-Transc-KasirMieAyam/views/kasir/";
+window.bukaHome = () => location.href = "/Anoms-Transc-KasirMieAyam/views/dashboard/";
+window.bukaHistory = () => location.href = "/Anoms-Transc-KasirMieAyam/views/rekapan/";
+window.bukaKasir = () => location.href = "/Anoms-Transc-KasirMieAyam/views/kasir/";
 
-window.bukaHome = () => location.href = "/views/dashboard/";
-window.bukaHistory = () => location.href = "/views/rekapan/";
-window.bukaKasir = () => location.href = "/views/kasir/";
+// window.bukaHome = () => location.href = "/views/dashboard/";
+// window.bukaHistory = () => location.href = "/views/rekapan/";
+// window.bukaKasir = () => location.href = "/views/kasir/";
 
 // 🔥 INIT (AMAN)
 document.addEventListener("DOMContentLoaded", () => {

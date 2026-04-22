@@ -16,7 +16,8 @@ export function checkAuth(allowedRoles = []) {
     // ❌ role tidak diizinkan
     if (allowedRoles.length && !allowedRoles.includes(currentUser.role)) {
         alert("Akses ditolak!");
-        window.location.href = "/dashboard.html";
+        // window.location.href = "/dashboard.html";
+        window.location.href = "/Anoms-Transc-KasirMieAyam/views/dashboard/";
         return;
     }
 }
