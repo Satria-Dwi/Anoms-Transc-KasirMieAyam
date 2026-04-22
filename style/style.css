@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-html,
+/* html,
 body {
     overflow-x: hidden;
-}
+} */
 
 * {
     margin: 0;
@@ -17,7 +17,7 @@ body {
 }
 
 .container {
-    display: flex;
+    display: block;
 }
 
 .sidebar {
@@ -73,11 +73,9 @@ body {
 }
 
 .main {
-    flex: 3;
-    padding: 25px;
-
     margin-left: 150px;
-    /* sama dengan lebar sidebar */
+    padding: 25px;
+    min-height: 100vh;
 }
 
 .topbar {
@@ -523,61 +521,39 @@ button {
 
 @media (max-width: 768px) {
 
-    /* 🔥 SIDEBAR HIDDEN FULL (NO OVERLAP) */
     .sidebar {
         position: fixed;
         left: -260px;
         top: 0;
         width: 240px;
         height: 100vh;
-
-        transition: 0.3s ease;
         z-index: 9999;
-        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.2);
+        transition: 0.3s ease;
     }
 
-    /* kalau aktif (nanti bisa dipanggil via JS toggle) */
     .sidebar.active {
         left: 0;
     }
 
-    /* 🔥 MAIN FULL WIDTH (IMPORTANT FIX) */
+    /* 🔥 INI FIX UTAMA */
     .main {
         margin-left: 0 !important;
         width: 100%;
         padding: 15px;
     }
 
-    /* 🔥 CART jadi bottom panel */
+    .container {
+        display: block;
+    }
+
     .cart {
         position: fixed;
         bottom: 0;
-        top: auto;
         left: 0;
         right: 0;
-
         width: 100%;
         height: 45vh;
-
-        border-top: 1px solid #eee;
-        border-left: none;
-
         z-index: 1000;
-    }
-
-    /* prevent content ketutup cart */
-    .main-content {
-        margin-right: 0;
-        padding-bottom: 50vh;
-    }
-
-    /* grid adjust */
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
     }
 }
 
