@@ -168,7 +168,12 @@ async function prosesBayar() {
 
     try {
         await simpanTransaksi(data);
-        printStruk(data);
+        // printStruk(data);
+        if (window.Android) {
+            Android.printStruk(JSON.stringify(data));
+        } else {
+            printStruk(data); // fallback kalau di browser
+        }
 
         cart = [];
         renderCart();
