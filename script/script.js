@@ -198,9 +198,10 @@ async function prosesBayar() {
         await simpanTransaksi(data);
 
         // 🔥 PRINT ONLY VIA ANDROID
+        printStruk(data); // selalu tampilkan preview
+
         if (window.Android && window.Android.printStruk) {
             try {
-                printStruk(data);
                 window.Android.printStruk(text);
             } catch (e) {
                 alert("Printer tidak terhubung!");
