@@ -51,7 +51,7 @@ function printStruk(data) {
 
     setTimeout(() => {
         modal.style.display = "none";
-    }, 10000);
+    }, 3000);
 }
 
 function tutupStruk() {
@@ -197,7 +197,7 @@ async function prosesBayar() {
     text += "================================\n";
     text += "     Terima Kasih :)\n";
     text += "   Selamat Menikmati\n";
-    text += "\n\n\n";
+    text += "\n\n";
 
     try {
         await simpanTransaksi(data);
