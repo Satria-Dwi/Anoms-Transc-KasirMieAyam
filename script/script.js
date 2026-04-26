@@ -51,7 +51,7 @@ function printStruk(data) {
 
     setTimeout(() => {
         modal.style.display = "none";
-    }, 3000);
+    }, 10000);
 }
 
 function tutupStruk() {
