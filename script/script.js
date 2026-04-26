@@ -11,8 +11,6 @@ let menu = [
     { nama: "Mie Ayam", harga: 7000, kategori: "mie", img: "https://images.unsplash.com/photo-1593755768185-f7257e9067ec?w=400" },
     { nama: "Mie Ayam Ceker", harga: 8000, kategori: "mie", img: "https://images.unsplash.com/photo-1680675706515-fb3eb73116d4?w=400" },
     { nama: "Mie Ayam Pentol", harga: 10000, kategori: "mie", img: "https://images.unsplash.com/photo-1747317277795-0d601795682c?w=400" },
-    { nama: "Pentol 1 Porsi", harga: 5000, kategori: "mie", img: "/Anoms-Transc-KasirMieAyam/images/pentol.jpg" },
-    { nama: "Ceker 1 Porsi", harga: 5000, kategori: "mie", img: "/Anoms-Transc-KasirMieAyam/images/ceker.jpg" },
 
     { nama: "Teh Hangat/Dingin", harga: 3000, kategori: "minum", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400" },
     { nama: "Jeruk Hangat/Dingin", harga: 4000, kategori: "minum", img: "https://images.unsplash.com/photo-1522427088495-81d38b91befb?w=400" },
@@ -22,10 +20,12 @@ let menu = [
     { nama: "Jus All Varian", harga: 6000, kategori: "minum", img: "https://images.unsplash.com/photo-1603569283847-aa295f0d016a?w=400" },
     { nama: "Jus Alpukat", harga: 8000, kategori: "minum", img: "https://images.unsplash.com/photo-1622704430673-59c152a9991c?w=400" },
 
-    { nama: "Kerupuk", harga: 1000, kategori: "Topping", img: "/Anoms-Transc-KasirMieAyam/images/kerupuk.jpg" },
-    { nama: "Kerupuk", harga: 2000, kategori: "Topping", img: "/Anoms-Transc-KasirMieAyam/images/kerupuk.jpg" },
-    { nama: "Sate Puyuh", harga: 3000, kategori: "Topping", img: "/Anoms-Transc-KasirMieAyam/images/sate-telur-puyuh.jpg" },
-    { nama: "Sate Usus", harga: 2000, kategori: "Topping", img: "/Anoms-Transc-KasirMieAyam/images/sate-usus.jpg" },
+    { nama: "Pentol 1 Porsi", harga: 5000, kategori: "topping", img: "/Anoms-Transc-KasirMieAyam/images/pentol.jpg" },
+    { nama: "Ceker 1 Porsi", harga: 5000, kategori: "topping", img: "/Anoms-Transc-KasirMieAyam/images/ceker.jpg" },
+    { nama: "Kerupuk", harga: 1000, kategori: "topping", img: "/Anoms-Transc-KasirMieAyam/images/kerupuk.jpg" },
+    { nama: "Kerupuk", harga: 2000, kategori: "topping", img: "/Anoms-Transc-KasirMieAyam/images/kerupuk.jpg" },
+    { nama: "Sate Puyuh", harga: 3000, kategori: "topping", img: "/Anoms-Transc-KasirMieAyam/images/sate-telur-puyuh.jpg" },
+    { nama: "Sate Usus", harga: 2000, kategori: "topping", img: "/Anoms-Transc-KasirMieAyam/images/sate-usus.jpg" },
 
 
 ];
@@ -92,14 +92,36 @@ function renderMenu(data = menu) {
     const container = document.getElementById("menu-list");
     if (!container) return;
 
+    // Kelompokkan berdasarkan kategori
+    const grouped = data.reduce((acc, item, index) => {
+        if (!acc[item.kategori]) acc[item.kategori] = [];
+        acc[item.kategori].push({ ...item, index });
+        return acc;
+    }, {});
+
     let html = "";
-    data.forEach((m, i) => {
+
+    Object.keys(grouped).forEach(kategori => {
         html += `
-        <div class="card" onclick='tambah(${i})'>
-            <img src="${m.img}" onerror="this.src='https://via.placeholder.com/150'">
-            <h4>${m.nama}</h4>
-            <p>Rp ${formatRupiah(m.harga)}</p>
-        </div>`;
+            <div class="menu-section">
+                <h2 class="menu-title">${kategori}</h2>
+                <div class="menu-grid">
+        `;
+
+        grouped[kategori].forEach(m => {
+            html += `
+                <div class="card" onclick='tambah(${m.index})'>
+                    <img src="${m.img}" onerror="this.src='https://via.placeholder.com/150'">
+                    <h4>${m.nama}</h4>
+                    <p>Rp ${formatRupiah(m.harga)}</p>
+                </div>
+            `;
+        });
+
+        html += `
+                </div>
+            </div>
+        `;
     });
 
     container.innerHTML = html;
