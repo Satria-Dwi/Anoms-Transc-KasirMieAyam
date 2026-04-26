@@ -94,9 +94,21 @@ function renderMenu(data = menu) {
     if (!container) return;
 
     // Kelompokkan menu berdasarkan kategori
-    const grouped = data.reduce((acc, item, index) => {
+    const grouped = data.reduce((acc, item) => {
         if (!acc[item.kategori]) acc[item.kategori] = [];
-        acc[item.kategori].push({ ...item, index });
+
+        // cari index asli dari array menu utama
+        const originalIndex = menu.findIndex(m =>
+            m.nama === item.nama &&
+            m.harga === item.harga &&
+            m.kategori === item.kategori
+        );
+
+        acc[item.kategori].push({
+            ...item,
+            index: originalIndex
+        });
+
         return acc;
     }, {});
 
