@@ -202,6 +202,7 @@ async function prosesBayar() {
 
     const bayarInput = document.getElementById("bayar");
     const bayar = parseInt(bayarInput.value) || 0;
+    const noMeja = document.getElementById("noMeja")?.value.trim() || "-";
 
     if (bayar < total) return alert("Uang kurang!");
 
@@ -212,6 +213,7 @@ async function prosesBayar() {
         total,
         bayar,
         kembali,
+        noMeja,
         kasir: currentUser?.username || "unknown",
         waktu: new Date()
     };
