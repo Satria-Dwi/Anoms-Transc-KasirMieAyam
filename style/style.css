@@ -645,13 +645,14 @@ button {
     background: white;
     padding: 15px;
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
+
 .struk-modal {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.45);
+    background: rgba(0, 0, 0, 0.45);
     z-index: 9999;
     justify-content: center;
     align-items: center;
@@ -663,7 +664,7 @@ button {
     max-width: 90%;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
     font-family: monospace;
     animation: popIn .2s ease;
 }
@@ -693,12 +694,19 @@ button {
 }
 
 @keyframes popIn {
-    from { transform: scale(.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from {
+        transform: scale(.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .menu-section {
-    margin-bottom: 30px;
+    width: 100%;
 }
 
 .menu-title {
@@ -713,7 +721,7 @@ button {
 
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 card per baris */
+    grid-template-columns: repeat(3, 1fr);
     gap: 15px;
 }
 
@@ -738,4 +746,11 @@ button {
     min-width: 160px;
     max-width: 160px;
     flex: 0 0 auto;
+}
+
+#menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
 }
