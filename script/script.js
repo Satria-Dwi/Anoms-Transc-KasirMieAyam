@@ -4,10 +4,10 @@ import { simpanTransaksi } from "./simpantransaksi.js";
 checkAuth();
 
 let menu = [
-    { nama: "Mie Pangsit Jadul", harga: 5000, kategori: "mie", img: "../images/mie-pangsit-jadul.png" },
-    { nama: "Mie Pangsit Isi", harga: 7000, kategori: "mie", img: "../images/mie-pangsit-isi.png" },
-    { nama: "Mie Pangsit Pentol", harga: 8000, kategori: "mie", img: "../images/mie-pangsit-pentol.png" },
-    { nama: "Mie Pangsit Spesial", harga: 13000, kategori: "mie", img: "../images/mie-pangsit-spesial.png" },
+    { nama: "Mie Pangsit Jadul", harga: 5000, kategori: "mie", img: "/Anoms-Transc-KasirMieAyam/images/mie-pangsit-jadul.png" },
+    { nama: "Mie Pangsit Isi", harga: 7000, kategori: "mie", img: "/Anoms-Transc-KasirMieAyam/images/mie-pangsit-isi.png" },
+    { nama: "Mie Pangsit Pentol", harga: 8000, kategori: "mie", img: "/Anoms-Transc-KasirMieAyam/images/mie-pangsit-pentol.png" },
+    { nama: "Mie Pangsit Spesial", harga: 13000, kategori: "mie", img: "/Anoms-Transc-KasirMieAyam/images/mie-pangsit-spesial.png" },
     { nama: "Mie Ayam", harga: 7000, kategori: "mie", img: "https://images.unsplash.com/photo-1593755768185-f7257e9067ec?w=400" },
     { nama: "Mie Ayam Ceker", harga: 8000, kategori: "mie", img: "https://images.unsplash.com/photo-1680675706515-fb3eb73116d4?w=400" },
     { nama: "Mie Ayam Pentol", harga: 10000, kategori: "mie", img: "https://images.unsplash.com/photo-1747317277795-0d601795682c?w=400" },
@@ -18,14 +18,14 @@ let menu = [
     { nama: "Jeruk Hangat/Dingin", harga: 4000, kategori: "minum", img: "https://images.unsplash.com/photo-1522427088495-81d38b91befb?w=400" },
     { nama: "Kopi Hitam", harga: 5000, kategori: "minum", img: "https://images.unsplash.com/photo-1746932714223-b48aa05b6e68?w=400" },
     { nama: "Kopi Susu", harga: 5000, kategori: "minum", img: "https://images.unsplash.com/photo-1669696742918-dc2d9dd3bd8c?w=400" },
-    { nama: "Wedang Jahe", harga: 5000, kategori: "minum", img: "../images/wedang-jahe.jpg" },
+    { nama: "Wedang Jahe", harga: 5000, kategori: "minum", img: "/Anoms-Transc-KasirMieAyam/images/wedang-jahe.jpg" },
     { nama: "Jus All Varian", harga: 6000, kategori: "minum", img: "https://images.unsplash.com/photo-1603569283847-aa295f0d016a?w=400" },
     { nama: "Jus Alpukat", harga: 8000, kategori: "minum", img: "https://images.unsplash.com/photo-1622704430673-59c152a9991c?w=400" },
 
-    { nama: "Kerupuk", harga: 1000, kategori: "Topping", img: "../images/kerupuk.jpg" },
-    { nama: "Kerupuk", harga: 2000, kategori: "Topping", img: "../images/kerupuk.jpg" },
-    { nama: "Sate Puyuh", harga: 3000, kategori: "Topping", img: "../images/sate-telur-puyuh.jpg" },
-    { nama: "Sate Usus", harga: 2000, kategori: "Topping", img: "../images/sate-usus.jpg" },
+    { nama: "Kerupuk", harga: 1000, kategori: "Topping", img: "/Anoms-Transc-KasirMieAyam/images/kerupuk.jpg" },
+    { nama: "Kerupuk", harga: 2000, kategori: "Topping", img: "/Anoms-Transc-KasirMieAyam/images/kerupuk.jpg" },
+    { nama: "Sate Puyuh", harga: 3000, kategori: "Topping", img: "/Anoms-Transc-KasirMieAyam/images/sate-telur-puyuh.jpg" },
+    { nama: "Sate Usus", harga: 2000, kategori: "Topping", img: "/Anoms-Transc-KasirMieAyam/images/sate-usus.jpg" },
 
 
 ];
