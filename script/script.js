@@ -218,34 +218,15 @@ async function prosesBayar() {
 
     // 🔥 FORMAT STRUK UNTUK PRINTER
     const trxId = "TRX-" + Date.now();
-    const tanggal = new Date().toLocaleString("id-ID");
+    const now = new Date();
+    const tanggal =
+        now.getDate().toString().padStart(2, "0") + "-" +
+        (now.getMonth() + 1).toString().padStart(2, "0") + "-" +
+        now.getFullYear() + " " +
+        now.getHours().toString().padStart(2, "0") + ":" +
+        now.getMinutes().toString().padStart(2, "0");
 
-    let text = "";
-    text += "        MIE AYAM OM PANGSIT\n";
-    text += "   Jl. Contoh No. 123 Surabaya\n";
-    text += "      Telp. 0812-xxxx-xxxx\n";
-    text += "================================\n";
-    text += `No   : ${trxId}\n`;
-    text += `Tgl  : ${tanggal}\n`;
-    text += `Kasir: ${data.kasir}\n`;
-    text += "================================\n";
-
-    data.items.forEach(item => {
-        let name = item.nama.substring(0, 14).padEnd(14, " ");
-        let qty = `${item.qty}x`.padEnd(4, " ");
-        let total = (item.qty * item.harga).toString().padStart(10, " ");
-
-        text += `${name}${qty}${total}\n`;
-    });
-
-    text += "--------------------------------\n";
-    text += `TOTAL   ${data.total.toString().padStart(22, " ")}\n`;
-    text += `BAYAR   ${data.bayar.toString().padStart(22, " ")}\n`;
-    text += `KEMBALI ${data.kembali.toString().padStart(22, " ")}\n`;
-    text += "================================\n";
-    text += "     Terima Kasih :)\n";
-    text += "   Selamat Menikmati\n";
-    text += "\n\n";
+    let text = buildStruk(data, trxId, tanggal);
 
     try {
         await simpanTransaksi(data);
@@ -269,6 +250,78 @@ async function prosesBayar() {
     } catch (err) {
         console.error(err);
     }
+}
+
+function buildStruk(data, trxId, tanggal) {
+    const width = 32; // lebar karakter printer 58mm
+
+    const center = (text) => {
+        const pad = Math.max(0, Math.floor((width - text.length) / 2));
+        return " ".repeat(pad) + text + "\n";
+    };
+
+    const line = () => "-".repeat(width) + "\n";
+    const doubleLine = () => "=".repeat(width) + "\n";
+
+    const leftRight = (left, right = "") => {
+        left = String(left);
+        right = String(right);
+
+        if (left.length > width) left = left.slice(0, width);
+        if (right.length > width) right = right.slice(0, width);
+
+        const space = width - left.length - right.length;
+        return left + " ".repeat(Math.max(1, space)) + right + "\n";
+    };
+
+    let text = "";
+
+    // HEADER
+    text += center("MIE AYAM OM PANGSIT");
+    text += center("Jl. Contoh No. 123 Surabaya");
+    text += center("Telp. 0812-xxxx-xxxx");
+    text += doubleLine();
+
+    // INFO
+    text += leftRight(`No: ${trxId}`, `Kasir: ${data.kasir}`);
+    text += leftRight(`Tgl: ${tanggal}`, "");
+    text += line();
+
+    // ITEMS
+    data.items.forEach((item, i) => {
+        const total = item.qty * item.harga;
+
+        // Nama item
+        const itemName = `${i + 1}. ${item.nama}`.slice(0, width);
+        text += itemName + "\n";
+
+        // Qty x harga    total
+        const left = `${item.qty} x Rp ${formatRupiah(item.harga)}`;
+        const right = `Rp ${formatRupiah(total)}`;
+        text += leftRight("   " + left, right);
+    });
+
+    text += line();
+
+    // SUMMARY
+    const totalQty = data.items.reduce((a, b) => a + b.qty, 0);
+
+    text += leftRight(`Total QTY : ${totalQty}`, "");
+    text += leftRight("Subtotal", `Rp ${formatRupiah(data.total)}`);
+    text += leftRight("Total", `Rp ${formatRupiah(data.total)}`);
+    text += line();
+
+    // PAYMENT
+    text += leftRight("Bayar", `Rp ${formatRupiah(data.bayar)}`);
+    text += leftRight("Kembali", `Rp ${formatRupiah(data.kembali)}`);
+    text += line();
+
+    // FOOTER
+    text += center("Terima Kasih");
+    text += center("Selamat Menikmati");
+    text += "\n\n";
+
+    return text;
 }
 
 // 🔥 SEARCH
