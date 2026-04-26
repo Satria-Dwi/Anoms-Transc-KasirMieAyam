@@ -93,11 +93,9 @@ function renderMenu(data = menu) {
     const container = document.getElementById("menu-list");
     if (!container) return;
 
-    // Kelompokkan menu berdasarkan kategori
     const grouped = data.reduce((acc, item) => {
         if (!acc[item.kategori]) acc[item.kategori] = [];
 
-        // cari index asli dari array menu utama
         const originalIndex = menu.findIndex(m =>
             m.nama === item.nama &&
             m.harga === item.harga &&
@@ -123,7 +121,7 @@ function renderMenu(data = menu) {
 
         grouped[kategori].forEach(m => {
             html += `
-                <div class="card" onclick="tambah(${m.index})">
+                <div class="card" data-index="${m.index}">
                     <img src="${m.img}" onerror="this.src='https://via.placeholder.com/150'">
                     <h4>${m.nama}</h4>
                     <p>Rp ${formatRupiah(m.harga)}</p>
@@ -138,7 +136,16 @@ function renderMenu(data = menu) {
     });
 
     container.innerHTML = html;
+
+    // bind klik setelah render
+    container.querySelectorAll(".card").forEach(card => {
+        card.addEventListener("click", function () {
+            const index = parseInt(this.dataset.index);
+            tambah(index);
+        });
+    });
 }
+
 // 🔥 TAMBAH
 function tambah(i) {
     let item = menu[i];
