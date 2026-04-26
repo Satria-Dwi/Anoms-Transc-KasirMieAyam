@@ -12,8 +12,10 @@ let menu = [
     { nama: "Mie Ayam Ceker", harga: 8000, kategori: "mie", img: "https://images.unsplash.com/photo-1680675706515-fb3eb73116d4?w=400" },
     { nama: "Mie Ayam Pentol", harga: 10000, kategori: "mie", img: "https://images.unsplash.com/photo-1747317277795-0d601795682c?w=400" },
 
-    { nama: "Teh Hangat/Dingin", harga: 3000, kategori: "minum", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400" },
-    { nama: "Jeruk Hangat/Dingin", harga: 4000, kategori: "minum", img: "https://images.unsplash.com/photo-1522427088495-81d38b91befb?w=400" },
+    { nama: "Teh Dingin", harga: 3000, kategori: "minum", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400" },
+    { nama: "Teh Hangat", harga: 3000, kategori: "minum", img: "../images/teh-hangat.jpg" },
+    { nama: "Jeruk Dingin", harga: 4000, kategori: "minum", img: "https://images.unsplash.com/photo-1522427088495-81d38b91befb?w=400" },
+    { nama: "Jeruk Hangat", harga: 4000, kategori: "minum", img: "../images/jeruk-hangat.jpg" },
     { nama: "Kopi Hitam", harga: 5000, kategori: "minum", img: "https://images.unsplash.com/photo-1746932714223-b48aa05b6e68?w=400" },
     { nama: "Kopi Susu", harga: 5000, kategori: "minum", img: "https://images.unsplash.com/photo-1669696742918-dc2d9dd3bd8c?w=400" },
     { nama: "Wedang Jahe", harga: 5000, kategori: "minum", img: "/Anoms-Transc-KasirMieAyam/images/wedang-jahe.jpg" },
