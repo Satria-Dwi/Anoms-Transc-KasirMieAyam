@@ -288,6 +288,7 @@ function buildStruk(data, trxId, tanggal) {
 
     // INFO
     text += leftRight(`No: ${trxId}`, `Kasir: ${data.kasir}`);
+    text += leftRight(`Meja: ${data.noMeja || "-"}`, "");
     text += leftRight(`Tgl: ${tanggal}`, "");
     text += line();
 
