@@ -302,7 +302,7 @@ function buildStruk(data, trxId, tanggal) {
     let text = "";
 
     // HEADER
-    text += center("MIE AYAM OM PANGSIT");
+    text += center("OM PANGSIT");
     text += center("Jl. Gubernur Suryo");
     text += center("Sebelah Widury Laundry");
     text += center("Telp. -");
