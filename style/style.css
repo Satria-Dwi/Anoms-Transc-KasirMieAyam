@@ -754,3 +754,11 @@ button {
     gap: 30px;
     width: 100%;
 }
+
+.struk-logo {
+    display: block;
+    width: 90px;
+    height: auto;
+    margin: 0 auto 10px auto;
+    object-fit: contain;
+}
