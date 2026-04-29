@@ -24,8 +24,8 @@ let menu = [
 
     { nama: "Pentol 1 Porsi", harga: 5000, kategori: "topping", img: "/Anoms-Transc-KasirMieAyam/images/pentol.jpg" },
     { nama: "Ceker 1 Porsi", harga: 5000, kategori: "topping", img: "/Anoms-Transc-KasirMieAyam/images/ceker.jpg" },
-    { nama: "Kerupuk", harga: 1000, kategori: "topping", img: "/Anoms-Transc-KasirMieAyam/images/kerupuk.jpg" },
-    { nama: "Kerupuk", harga: 2000, kategori: "topping", img: "/Anoms-Transc-KasirMieAyam/images/kerupuk.jpg" },
+    { nama: "Kerupuk 1rb", harga: 1000, kategori: "topping", img: "/Anoms-Transc-KasirMieAyam/images/kerupuk.jpg" },
+    { nama: "Kerupuk 2rb", harga: 2000, kategori: "topping", img: "/Anoms-Transc-KasirMieAyam/images/kerupuk.jpg" },
     { nama: "Sate Puyuh", harga: 3000, kategori: "topping", img: "/Anoms-Transc-KasirMieAyam/images/sate-telur-puyuh.jpg" },
     { nama: "Sate Usus", harga: 2000, kategori: "topping", img: "/Anoms-Transc-KasirMieAyam/images/sate-usus.jpg" },
 
@@ -302,9 +302,9 @@ function buildStruk(data, trxId, tanggal) {
     let text = "";
 
     // HEADER
-    text += center("OM PANGSIT");
+    // text += center("OM PANGSIT");
     text += center("Jl. Gubernur Suryo");
-    text += center("Sebelah Widury Laundry");
+    // text += center("Sebelah Widury Laundry");
     text += center("Telp. -");
     // text += center("IG / FB: om_pangsit");
     text += doubleLine();
@@ -336,7 +336,7 @@ function buildStruk(data, trxId, tanggal) {
     const totalQty = data.items.reduce((a, b) => a + b.qty, 0);
 
     text += leftRight(`Total QTY : ${totalQty}`, "");
-    text += leftRight("Subtotal", `Rp ${formatRupiah(data.total)}`);
+    // text += leftRight("Subtotal", `Rp ${formatRupiah(data.total)}`);
     text += leftRight("Total", `Rp ${formatRupiah(data.total)}`);
     text += line();
 
