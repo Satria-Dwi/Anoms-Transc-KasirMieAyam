@@ -239,7 +239,8 @@ async function prosesBayar() {
         kasir: currentUser?.username || "unknown",
         waktu: new Date().toLocaleString("id-ID", {
             timeZone: "Asia/Jakarta"
-        })
+        }),
+        waktu_raw: now.toISOString() // buat sorting / laporan
     };
 
     // 🔥 FORMAT STRUK UNTUK PRINTER
