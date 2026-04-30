@@ -237,7 +237,9 @@ async function prosesBayar() {
         kembali,
         noMeja,
         kasir: currentUser?.username || "unknown",
-        waktu: new Date()
+        waktu: new Date().toLocaleString("id-ID", {
+            timeZone: "Asia/Jakarta"
+        })
     };
 
     // 🔥 FORMAT STRUK UNTUK PRINTER
