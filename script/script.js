@@ -229,7 +229,9 @@ async function prosesBayar() {
     if (bayar < total) return alert("Uang kurang!");
 
     const kembali = bayar - total;
-
+    
+    const now = new Date();
+    
     const data = {
         items: [...cart],
         total,
@@ -245,7 +247,6 @@ async function prosesBayar() {
 
     // 🔥 FORMAT STRUK UNTUK PRINTER
     const trxId = "TRX-" + Date.now();
-    const now = new Date();
     const tanggal =
         now.getDate().toString().padStart(2, "0") + "-" +
         (now.getMonth() + 1).toString().padStart(2, "0") + "-" +
