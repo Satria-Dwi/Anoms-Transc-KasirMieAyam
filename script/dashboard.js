@@ -28,7 +28,6 @@ let chart;
 
 // 🔥 LOAD DASHBOARD
 function loadDashboard() {
-
     onSnapshot(collection(db, "transaksi"), (snapshot) => {
 
         let pendapatanHariIni = 0;
@@ -37,11 +36,10 @@ function loadDashboard() {
 
         const todayStr = new Date().toLocaleDateString("sv-SE");
 
-        snapshot.forEach(doc => {
-            const data = doc.data();
+        snapshot.forEach((docSnap) => {
+            const data = docSnap.data();
 
-            // 🔥 ambil tanggal (prioritas: waktu)
-            // 🔥 pakai createdAt (utama), fallback ke waktu_raw / waktu
+            // 🔥 ambil tanggal dari createdAt (utama), fallback aman
             const trxDate = data.createdAt?.toDate
                 ? data.createdAt.toDate()
                 : data.createdAt
@@ -52,11 +50,11 @@ function loadDashboard() {
                             ? new Date(data.waktu)
                             : null;
 
-            if (!trxDate || isNaN(trxDate)) return;
+            if (!trxDate || isNaN(trxDate.getTime())) return;
 
             const trxStr = trxDate.toLocaleDateString("sv-SE");
 
-            // 💰 hari ini
+            // 💰 hitung hari ini
             if (trxStr === todayStr) {
                 pendapatanHariIni += Number(data.total || 0);
                 transaksiHariIni++;
@@ -69,11 +67,20 @@ function loadDashboard() {
             perHari[tgl] += Number(data.total || 0);
         });
 
+        // 🔥 urutkan tanggal lama → baru
+        perHari = Object.fromEntries(
+            Object.entries(perHari).sort((a, b) => {
+                const d1 = new Date(a[0].split("/").reverse().join("-"));
+                const d2 = new Date(b[0].split("/").reverse().join("-"));
+                return d1 - d2;
+            })
+        );
+
         // 🔥 UPDATE UI
         document.getElementById("pendapatanHariIni").innerText = rupiah(pendapatanHariIni);
         document.getElementById("transaksiHariIni").innerText = transaksiHariIni;
 
-        // 📈 CHART
+        // 📈 CHART (tetap bentuk lama)
         const ctx = document.getElementById("salesChart");
 
         if (ctx) {
