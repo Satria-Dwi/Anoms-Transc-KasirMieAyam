@@ -648,6 +648,12 @@ button {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
+.chart-box {
+    position: relative;
+    width: 100%;
+    height: 320px;   /* fix tinggi */
+}
+
 .struk-modal {
     display: none;
     position: fixed;
